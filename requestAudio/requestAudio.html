@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>requestAudio</title>
+</head>
+<body>
+    <audio controls="controls" id="ado" autoplay="autoplay"></audio>
+    <script>
+        // var blob = new Blob([buffer]);  
+        var audioEle=document.getElementById("ado");
+        var xhr=new XMLHttpRequest();
+        xhr.open("get","mario.mp3",true)
+        // xhr.responseType="blob"
+        xhr.responseType="arraybuffer"
+        xhr.send(null)
+        var kfc;
+        var arr=[];
+        xhr.onload=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+            // 4 = "loaded" && 200 =  ok
+            console.log(xhr)
+            // console.log(xhr.response)  //不加
+            // responseType="arraybuffer"
+            // 或者blob，会很卡，一大堆乱码
+            arr.push(xhr.response)
+            console.log(arr)
+            // var blob=new Blob([xhr.response])
+            var blob=new Blob(arr)
+            console.log(blob)
+            kfc=window.URL.createObjectURL(blob)
+            console.log(kfc)
+            audioEle.src=kfc;    
+        }
+        }
+    </script>
+</body>
+</html>
